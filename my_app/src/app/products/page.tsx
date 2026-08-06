@@ -1,3 +1,10 @@
+export const metadata={
+    title : {
+      default: "Product Page",
+      template: "%s | My App"
+    },
+    "description":"View our available products"
+}
 export default function ProductsPage(){
     return(
         <main>
