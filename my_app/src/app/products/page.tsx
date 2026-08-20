@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export const metadata={
     title : {
       default: "Product Page",
@@ -9,8 +11,9 @@ export default function ProductsPage(){
     return(
         <main>
             <h1 >Product Page</h1>
-        <div>Product 1</div>
-        <div>Product 2</div>
-        <div>Product 3</div>
-        </main>    )
+            <Link href="/products/1"><h2>Product 1</h2></Link>
+            <Link href="/products/2"><h2>Product 2</h2></Link>
+            <Link href="/products/3"><h2>Product 3</h2></Link>
+        </main>
+    )
 };
