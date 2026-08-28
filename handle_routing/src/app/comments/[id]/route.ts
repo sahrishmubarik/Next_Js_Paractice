@@ -3,7 +3,7 @@ import path from "path";
 
 const filePath = path.join(process.cwd(), "data", "comments.json");
 export async function GET(
-  _resquest: Request,
+  _request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
