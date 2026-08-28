@@ -1,14 +1,49 @@
 import fs from "fs/promises";
 import path from "path";
 
+const filePath = path.join(process.cwd(), "data", "comments.json");
+export async function GET(
+  _resquest: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  const { id } = await params;
+  const file = await fs.readFile(filePath, "utf-8");
+  const comments = JSON.parse(file);
 
-const filePath=path.join(process.cwd(), "data", "comments.json");
-export async function GET(_resquest:Request, {params}:{params: Promise<{id:string}>}){
-    const { id } = await params;
-    const file = await fs.readFile(filePath, "utf-8");
-    const comments = JSON.parse(file);
-
-    const comment=comments.find((comment)=> comment.id===parseInt(id));
+  const comment = comments.find((comment) => comment.id === parseInt(id));
 
   return Response.json(comment);
+}
+export async function PATCH(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+
+  const body = await request.json();
+  const { text } = body;
+
+  const file = await fs.readFile(filePath, "utf-8");
+  const comments = JSON.parse(file);
+
+  const index = comments.findIndex(
+    (comment) => comment.id === Number(id)
+  );
+
+  if (index === -1) {
+    return Response.json(
+      { message: "Comment not found" },
+      { status: 404 }
+    );
+  }
+
+  comments[index].text = text;
+
+  await fs.writeFile(
+    filePath,
+    JSON.stringify(comments, null, 2),
+    "utf-8"
+  );
+
+  return Response.json(comments[index]);
 }
