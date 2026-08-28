@@ -19,7 +19,6 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-
   const body = await request.json();
   const { text } = body;
 
@@ -46,4 +45,43 @@ export async function PATCH(
   );
 
   return Response.json(comments[index]);
+}
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+
+  //  Read the file
+  const file = await fs.readFile(filePath, "utf-8");
+
+  //  Convert JSON string into JavaScript array
+  const comments = JSON.parse(file);
+
+  // Find the comment
+  const index = comments.findIndex(
+    (comment) => comment.id === Number(id)
+  );
+
+  //  If comment doesn't exist
+  if (index === -1) {
+    return Response.json(
+      { message: "Comment not found" },
+      { status: 404 }
+    );
+  }
+
+  // Remove the comment
+  const deletedComment = comments.splice(index, 1);
+
+  //  Write the updated array back to the file
+  await fs.writeFile(
+    filePath,
+    JSON.stringify(comments, null, 2),
+    "utf-8"
+  );
+
+  //  Return deleted comment
+  return Response.json(deletedComment[0]);
 }

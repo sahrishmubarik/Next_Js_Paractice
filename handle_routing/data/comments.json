@@ -14,11 +14,5 @@
   {
     "id": 4,
     "text": "This is my updated comment"
-  },
-  {
-    "id": 5,
-    "text": {
-      "text": "new Comment add in it"
-    }
   }
 ]

@@ -4,9 +4,7 @@ import path from "path";
 const filePath=path.join(process.cwd(), "data", "comments.json");
 export async function GET() {
   const file = await fs.readFile(filePath, "utf-8");
-
   const comments = JSON.parse(file);
-
   return Response.json(comments);
 }
 export async function POST(request:Request){
