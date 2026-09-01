@@ -9,9 +9,13 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "client-only": "^0.0.1",
     "next": "16.3.3",
+    "only-server": "^0.0.1",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "react-slick": "^0.31.0",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
